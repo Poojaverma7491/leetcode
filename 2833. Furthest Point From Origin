@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int furthestDistanceFromOrigin(string moves) {
+        int count = 0;
+        int r=0, l=0, u=0;
+        for(int i=0; i<moves.size(); i++){
+            if(moves[i]=='L'){
+                l++;
+            }
+            if(moves[i]=='R'){
+                r++;
+            }
+            else{
+                u++;
+            }
+        }
+        for(int i=0; i<moves.size(); i++){
+            if(r>l){
+                if(moves[i]=='R' || moves[i]=='_'){
+                    count++;
+                }
+                else{
+                    count--;
+                }
+            }
+            else{
+                if(moves[i]=='L' || moves[i]=='_'){
+                    count--;
+                }
+                else{
+                    count++;
+                }
+            }
+        }
+        return abs(count);
+    }
+};
