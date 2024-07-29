@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int numTeams(vector<int>& rating) {
+        int soldiers = rating.size();
+        int teams = 0;
+        for(int i = 0; i < soldiers; i++){
+            for(int j = 0; j < i; j++){
+                for(int k = 0; k < j; k++){
+                    if(rating[i] > rating[j] && rating[j] > rating[k]){
+                        teams++;
+                    }
+                    else if(rating[i] < rating[j] && rating[j] < rating[k]){
+                        teams++;
+                    }
+                }
+            }
+        }
+        return teams;
+    }
+};
