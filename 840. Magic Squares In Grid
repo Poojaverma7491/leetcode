@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool check(vector<vector<int>>& grid, int rs, int cs){
+        vector<int> vec;
+        for(int i = rs; i < rs + 3; i++){
+            for(int j = cs; j < cs + 3; j++){
+                vec.push_back(grid[i][j]);
+            }
+        }
+        sort(vec.begin(), vec.end());
+        for(int i = 0; i < 9; i++){
+            if(vec[i] != i + 1)
+                return false;
+        }
+
+        int sum = grid[rs][cs] + grid[rs][cs+1] + grid[rs][cs+2];
+
+        for(int i = rs; i < rs + 3; i++){
+            if(grid[i][cs] + grid[i][cs+1] + grid[i][cs+2] != sum){
+                return false;
+            }
+        }
+
+        for(int i = cs; i < cs + 3; i++){
+            if(grid[rs][i] + grid[rs+1][i] + grid[rs+2][i] != sum){
+                return false;
+            }
+        }
+
+        if(grid[rs][cs] + grid[rs+1][cs+1] + grid[rs+2][cs+2] != sum)
+            return false;
+
+        if(grid[rs][cs+2] + grid[rs+1][cs+1] + grid[rs+2][cs] != sum)
+            return false;
+
+        return true;
+    }
+
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+        int count = 0;
+        for(int i = 0; i <= rows - 3; i++){
+            for(int j = 0; j <= cols - 3; j++){
+                if(check(grid, i, j)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
