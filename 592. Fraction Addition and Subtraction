@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string fractionAddition(string expression) {
+        int nume = 0;
+        int deno = 1;
+        int n = expression.size();
+        int i = 0;
+        while(i < n){
+            long long newnume = 0;
+            long long newdeno = 0;
+
+            bool isneg = expression[i] == '-';
+
+            if(expression[i] == '+' || expression[i] == '-')
+                i++;
+            
+            while(i < n && isdigit(expression[i])){
+                int val = expression[i] - '0';
+                newnume = (newnume * 10) + val;
+                i++;
+            }
+            i++;
+
+            if(isneg == true){
+                newnume *= -1;
+            }
+
+            while(i < n && isdigit(expression[i])){
+                int val = expression[i] - '0';
+                newdeno = (newdeno * 10) + val;
+                i++;
+            }
+            nume = nume * newdeno + newnume * deno;
+            deno = deno * newdeno;
+        }
+        int GCD = __gcd(abs(nume), deno);
+        nume /= GCD;
+        deno /= GCD;
+        return to_string(nume) + '/' + to_string(deno);
+    }
+};
