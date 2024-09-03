@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        int total = 0;
+        for(auto ch : s){
+            int x = ch - 96;
+            if(x < 10)
+                total += x;
+            else{
+                total += (x % 10);
+                total += (x / 10);
+            }
+        }
+        if(k == 1)
+            return total;
+        else{
+            for(int i = 1; i < k; i++){
+                int newTotal = 0;
+                while(total){
+                    newTotal += (total % 10);
+                    total /= 10;
+                }
+                total = newTotal;
+            }
+            return total;
+        }
+        return -1;
+    }
+};
